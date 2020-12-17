@@ -19,8 +19,5 @@ export class AllListComponent implements OnInit {
       console.log(data)
     }) 
   }
-  goto(user) {
-    this.http.sendItem(user);
-  }
 
 }

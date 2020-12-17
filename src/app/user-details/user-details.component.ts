@@ -25,10 +25,6 @@ export class UserDetailsComponent implements OnInit{
           console.log("No such document!");
       }
     })
-    this.http.getItem().subscribe( (data) => {
-      console.log(data)
-      this.empDetails = data;
-    })
   }
   onChoseLocation(data) {
 

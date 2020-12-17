@@ -14,7 +14,6 @@ export class DataService {
   items: Observable<EmpId[]>;
   itemDoc: AngularFirestoreDocument<Employee>;
 
-  private getParticularUser = new BehaviorSubject(0);;
 
   constructor(private http:HttpClient, private fireStore:AngularFirestore) { 
     this.EmployeeCollection = fireStore.collection<Employee>('employees');
@@ -39,12 +38,6 @@ export class DataService {
   }
   getAddress() {
     return this.http.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${environment.apikey}`).toPromise();
-  }
-  getItem(): Observable<any> {
-    return this.getParticularUser.asObservable();
-  }
-  sendItem(item) {
-    this.getParticularUser.next(item)
   }
 }
 interface EmpId extends Employee { id: string; }
