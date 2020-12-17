@@ -14,7 +14,7 @@ export class UserDetailsComponent implements OnInit{
   empDetails:any;
   ngOnInit(): void {
     let empId=this.router.snapshot.paramMap.get("id");
-    this.http.getEmpDetails(empId).get().subscribe(function(doc) {
+    this.http.getEmpDetails(empId).get().subscribe((doc:any) => {
       if (doc.exists) {
           this.empDetails = doc.data();
           this.empDetails.latitude = parseFloat(this.empDetails.latitude);
