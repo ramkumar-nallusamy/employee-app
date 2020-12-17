@@ -1,0 +1,12 @@
+<section class="container my-5">
+  <div class="row d-flex justify-content-center">
+    <div class="card col-md-3 my-4 mx-2 px-0" *ngFor="let user of allUsers">
+      <img class="card-img-top" src={{user?.profileUrl}} alt="Card image cap">
+      <div class="card-body px-3">
+        <h5 class="card-title">Full Name : {{user?.firstName+''+user?.lastName}}</h5>
+        <p class="card-text">Mobile : {{user?.phoneNumber}}</p>
+        <a [routerLink]="['/emp-details/', user.id]" (click)=goto(user) routerLinkActive="router-link-active"  class="btn btn-primary">Go to Details</a>
+      </div>
+  </div>
+  </div>
+</section>

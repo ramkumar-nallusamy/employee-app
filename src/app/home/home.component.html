@@ -1,0 +1,85 @@
+<div class="container my-5 border-success">
+    <div class="d-flex justify-content-between">
+        <h2 class="mb-3">Adding Employee Details</h2>
+        <button class="btn btn-primary" [routerLink]="['/all-users']" routerLinkActive="router-link-active" >Go to All Users</button>
+    </div>
+    <form [formGroup]="registerationForm" (submit) = callSubmit()>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="first-naem">First Name</label>
+            <input type="text" [class.is-invalid]="registerationForm.get('firstName').invalid && registerationForm.get('firstName').touched" formControlName="firstName" class="form-control" id="first-naem" placeholder="First name">
+            <div *ngIf="registerationForm.get('firstName').invalid && registerationForm.get('firstName').touched">
+                <small class="text-danger" *ngIf='registerationForm.get("firstName").errors.required'>Please Enter firstname.</small>
+                <small class="text-danger" *ngIf='registerationForm.get("firstName").errors.minlength'>firstname should be more than 2 characters.</small>
+                <small class="text-danger" *ngIf='registerationForm.get("firstName").errors.maxlength'>firstname should be less than 20 characters.</small>
+            </div>
+        </div>
+          <div class="form-group col-md-6">
+            <label for="last-name">Last Name</label>
+            <input type="text" [class.is-invalid]="registerationForm.get('lastName').invalid && registerationForm.get('lastName').touched" formControlName="lastName" class="form-control" id="last-name" placeholder="Last name">
+            <div *ngIf="registerationForm.get('lastName').invalid && registerationForm.get('lastName').touched">
+                <small class="text-danger" *ngIf='registerationForm.get("lastName").errors.required'>Please Enter Lastname.</small>
+                <small class="text-danger" *ngIf='registerationForm.get("lastName").errors.minlength'>Lastname should be more than 2 characters.</small>
+                <small class="text-danger" *ngIf='registerationForm.get("lastName").errors.maxlength'>Lastname should be less than 20 characters.</small>
+            </div>
+        </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="phone-number">Phone Number</label>
+              <input type="tel" [class.is-invalid]="registerationForm.get('phoneNumber').invalid && registerationForm.get('phoneNumber').touched" formControlName="phoneNumber" class="form-control" id="phone-number" placeholder="Enter your number">
+              <div *ngIf="registerationForm.get('phoneNumber').invalid && registerationForm.get('phoneNumber').touched">
+                <small class="text-danger" *ngIf='registerationForm.get("phoneNumber").errors.required'>Please Enter phone Number.</small>
+                <small class="text-danger" *ngIf='registerationForm.get("phoneNumber").errors.minlength'>phone Number should be more than 2 characters.</small>
+                <small class="text-danger" *ngIf='registerationForm.get("phoneNumber").errors.maxlength'>phone Number should be less than 20 characters.</small>
+            </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="email" [class.is-invalid]="registerationForm.get('email').invalid && registerationForm.get('email').touched" formControlName="email" class="form-control" id="email" placeholder="Email">
+                <div *ngIf="registerationForm.get('email').invalid && registerationForm.get('email').touched">
+                    <small class="text-danger" *ngIf='registerationForm.get("email").errors.required'>Please Enter your mail id.</small>
+                    <small class="text-danger" *ngIf='registerationForm.get("email").errors.pattern'>Please Enter correct mail id.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Address</label>
+          <div class="form-control d-flex justify-content-between pr-3" [class.is-invalid]="registerationForm.get('address').invalid && registerationForm.get('address').touched">
+            <input type="text" formControlName="address" class="form-control border-0 p-0" id="inputAddress" placeholder="1234 Main St">
+            <span class="material-icons mr-3" (click)=getLocation()>add_location_alt</span>
+          </div>
+          <div *ngIf="registerationForm.get('address').invalid && registerationForm.get('address').touched">
+            <small class="text-danger" *ngIf='registerationForm.get("address").errors.required'>Please Enter Address.</small>
+          </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="designation">Designation</label>
+              <input type="text" class="form-control" [class.is-invalid]="registerationForm.get('designation').invalid && registerationForm.get('designation').touched" formControlName="designation" id="designation" placeholder="Enter your designation">
+              <div *ngIf="registerationForm.get('designation').invalid && registerationForm.get('designation').touched">
+                <small class="text-danger" *ngIf='registerationForm.get("designation").errors.required'>Please Enter Designation.</small>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="salary">Salary</label>
+                <input type="number" class="form-control" [class.is-invalid]="registerationForm.get('salary').invalid && registerationForm.get('salary').touched" formControlName="salary" id="salary" placeholder="Enter your salery">
+                <div *ngIf="registerationForm.get('salary').invalid && registerationForm.get('salary').touched">
+                    <small class="text-danger" *ngIf='registerationForm.get("salary").errors.required'>Please Enter salery.</small>
+                </div>
+            </div>
+        </div>
+        <label for="salary" for="customFile">Upload your Profile</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile" multiple accept='image/*' (change)=fileDropped($event)>
+            <label class="custom-file-label" for="customFile">{{selectedImage?.name? selectedImage?.name : 'Choose file'}}</label>
+            <small *ngIf='selectedImage?.name && !onUpload' class="text-success">submit to upload the file</small>
+            <div *ngIf='selectedImage?.name && onUpload' class="text-primary mt-2 mr-2"> 
+              <div class="spinner-border spinner-border-sm text-success"role="status" >
+                <span class="sr-only">Loading...</span>
+            </div> uploading Your image...</div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
