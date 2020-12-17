@@ -12,6 +12,8 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { AgmCoreModule } from '@agm/core';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { AgmCoreModule } from '@agm/core';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatSnackBarModule,
+    NoopAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig,'angular-map'),
     AngularFirestoreModule,
     AgmCoreModule.forRoot({

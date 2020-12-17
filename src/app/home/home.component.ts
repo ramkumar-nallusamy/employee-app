@@ -6,6 +6,7 @@ import {
   AngularFireUploadTask,
 } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
   onUpload:boolean = false; // to show the user of image is uploading.
 
 
-  constructor(private formBuilder:FormBuilder, private http:DataService, private storage:AngularFireStorage) { }
+  constructor(private formBuilder:FormBuilder, private http:DataService, private storage:AngularFireStorage, private snackbar:MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -49,6 +50,15 @@ export class HomeComponent implements OnInit {
 
   callSubmit() {
     if (!this.registerationForm.invalid) {
+      if (!this.selectedImage) {   // if the user not uploading the profile.
+        this.http.addEmployee(this.registerationForm.value)
+        console.log(this.registerationForm.value)
+        this.registerationForm.reset();
+        this.snackbar.open('Form submitted successfully', 'close', {
+          duration: 5000,
+          panelClass:'snack-bar'
+        });
+      }
       this.onUpload = true;
       console.log(this.registerationForm.value)
       var filePath = `${this.selectedImage.name}_${new Date().getTime()}`;
@@ -60,12 +70,16 @@ export class HomeComponent implements OnInit {
             this.registerationForm.patchValue({
               'profileUrl': url
             })
-            if(url.length) {
+            if(url.length || !this.selectedImage) {
               console.log("form submitted")
               this.onUpload = false;
               this.selectedImage = null;
-              this.http.addEmployee(this.registerationForm.value)
-              this.registerationForm.reset(this.registerationForm.value);
+              this.http.addEmployee(this.registerationForm.value) // if the user uploading profile and get the link ref store in db.
+              this.registerationForm.reset();
+              this.snackbar.open('Form submitted successfully', 'close', {
+                duration: 5000,
+                panelClass:'snack-bar'
+              });
             }
           })
         })
